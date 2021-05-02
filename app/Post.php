@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Post extends Model
 {
-	protected $table = 'posts';
+	//protected $table = 'posts';
+
+	public function user() {
+		return $this->belongsTo('App\User');
+	}
 
 }

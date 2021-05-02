@@ -14,7 +14,26 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a href="/posts/create" class="btn btn-primary">Create Post</a>
+                    <h3> Your Blog Post</h3>
+                    @if(count($posts) > 0)
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Title</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        @foreach($posts as $post)
+                        <tr>
+                           <td>{{$post->title}}</td> 
+                           <td><a href="/posts/{{$post->id}}/edit" class="btn btn-default">Edit</a></td> 
+                           <td></td> 
+                        </tr>
+                        @endforeach
+                    </table>
+                    @else
+                    <p>You have no posts.</p>
+                    @endif
                 </div>
             </div>
         </div>
