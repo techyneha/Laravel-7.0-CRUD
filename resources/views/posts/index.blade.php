@@ -10,7 +10,7 @@
 			@foreach($posts as $post)
 			@if(auth()->user()->id == $post->user_id)
 				<div class="col-md-4">
-					<img src="/storage/cover_images/{{$post->cover_image}}" alt="Post Image" style="width:100%;height: 100%">
+					<img src="/storage/cover_images/{{$post->cover_image}}" alt="Post Image" style="width:200px;height: 100px">
 				</div>
 				<div class="col-md-8">
 					<li class="list-group-item">

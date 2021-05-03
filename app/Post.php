@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 
 class Post extends Model
 {
-	//protected $table = 'posts';
+	use SoftDeletes;
+	
+	protected $table = 'posts';
 
 	public function user() {
 		return $this->belongsTo('App\User');

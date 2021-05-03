@@ -24,10 +24,14 @@ class PostsController extends Controller
      */
     public function index()
     {
-        // $posts = Post::all();
-        // $posts = Post::orderBy('title','desc')->get();
-        $posts = DB::select('SELECT * FROM posts');
-        return view('posts.index')->with('posts',$posts);
+        $posts = Post::all(); //Excludes soft deleted
+
+        //$posts = Post::orderBy('title','desc')->get();
+        //$posts = DB::select('SELECT * FROM posts');
+ 
+        //$posts = Post::withTrashed()->get(); //Includes soft deleted
+        //$posts = Post::onlyTrashed()->get(); //Only soft deleted users
+        return view('posts.index')->with('posts',$posts); 
     }
 
     /**
@@ -72,7 +76,7 @@ class PostsController extends Controller
             //upload image 
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         }else {
-            $fileNameToStore = 'noimage.jpeg';
+            $fileNameToStore = 'noimage.png';
         }   
 
         $post = new Post;
@@ -174,7 +178,7 @@ class PostsController extends Controller
             return redirect('/posts')->with('error','Unauthorized Page');
         }
 
-        if($post->cover_image != 'noimage.jpg'){
+        if($post->cover_image != 'noimage.png' && $post->cover != ''){
             Storage::delete('public/cover_image/'.$post->cover_image);
         }
 
@@ -182,9 +186,5 @@ class PostsController extends Controller
 
         return redirect('/posts')->with('success','Post Deleted');
     }
-
-    //$post->onlyTrashed()->get();
-    // $allusers = User::withTrashed()->get(); include Soft delete
-    //$trashedusers = User::onlyTrashed()->get(); //Only soft deleted users
 
 }
